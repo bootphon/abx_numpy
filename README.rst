@@ -8,19 +8,16 @@ Input and output format are easier to use.
 
 Installation
 ------------
-..
 
-   The easiest way to install most Python packages is via ``easy_install`` or ``pip``::
+::
 
-       $ easy_install abx_numpy
-
-
-python setup.py build && python setup.py install
+   $ python setup.py build && python setup.py install
 
 Usage
 -----
 
 To do an ABX evaluation::
+
   >> import numpy as np
   >> features = np.random.randint(0, 10, (12, 4))  # 12 items, 4 dimensionnal features
   >> classes = np.random.randint(0, 4, (12,))  # 3 classes

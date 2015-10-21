@@ -2,6 +2,9 @@
 abx_numpy: Small ABX evaluation
 ==================================================================
 
+.. image:: https://travis-ci.org/bootphon/abx_numpy.svg?branch=master
+    :target: https://travis-ci.org/bootphon/abx_numpy
+
 This package is a simpler version of the ABXpy package, for smaller task wth less constraints.
 
 Input and output format are easier to use.

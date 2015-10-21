@@ -23,7 +23,7 @@ def score(classes, distances):
 
     Returns
     -------
-    average: float
+    average : float
         average abx score
     labels : array (n_classes)
         1D array containing the unique classes
@@ -103,7 +103,7 @@ def abx(classes, features, distance_function):
 
     Returns
     -------
-    average: float
+    average : float
         average abx score
     labels : array (n_classes)
         1D array containing the unique classes

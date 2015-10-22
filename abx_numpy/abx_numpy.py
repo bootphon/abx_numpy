@@ -7,17 +7,16 @@ Licensed under GPLv3.
 """
 import numpy as np
 import itertools
-# import abx_numpy.lib as lib
 import lib
 
 
-def score(classes, distances):
-    """Compute the ABX score for a set of classes and a distance matrix.
+def score(classes, distances, is_sorted=False):
+    """Compute the ABX score for a set of sorted classes and a distance matrix.
 
     Parameters:
     -----------
     classes : array (n_items)
-        1-D array containing the class labels of the items.
+        1-D array containing the sorted class labels of the items.
     distances : array (n_items, n_items)
         2-D array containing the pairwise distance of the items.
 
@@ -31,9 +30,11 @@ def score(classes, distances):
         2D array containing the abx scores for each pair of classes.
         The diagonal contains nan values
     """
-    order = np.argsort(classes)
-    _classes = classes[order]
-    _distances = distances[order]
+    if not is_sorted:
+        order = np.argsort(classes)
+        _classes, _distances = classes[order], distances[order, order]
+    else:
+        _classes, _distances = classes, distances
     labels, indexes = lib.unique_sorted(_classes)
     
     class Index(object):
@@ -87,7 +88,44 @@ def compute_distances(features, distance_function):
     return distances
 
 
-def abx(classes, features, distance_function):
+def sort(classes, features):
+    """Sort classes according to labels and features according to the new order"""
+    order = np.argsort(classes)
+    return classes[order], features[order]
+
+
+def sample(classes, features, cutoff, is_sorted=False):
+    """'Fair' sampling (non-uniform, inverse to the class weight)
+
+    Parameters
+    ----------
+    classes : array (n_items)
+        1-D array containing the class labels of the items.
+    features : array (n_items, dim_features)
+        2-D array containing the features of the items.
+    cutoff : int
+        Cutoff to use for sample (number of items kept).
+
+    Returns
+    -------
+    sampled classes, sampled features
+    """
+    #TODO: improve fairness by enforcing the number of element in each class
+    # to be equal
+    if not is_sorted:
+        _classes, _features = sort(classes, features)
+    else:
+        _classes, _features = classes, features
+    n_items = _classes.shape[0]
+    labels, indexes = lib.unique_sorted(_classes)
+    size_classes = indexes[1:] - indexes[:-1]
+    proba_sampling = np.repeat(1. / (size_classes * len(labels)), size_classes)
+    indexes = np.random.choice(n_items, size=cutoff, replace=False, p=proba_sampling)
+    indexes = np.sort(indexes)
+    return _classes[indexes], _features[indexes]
+
+
+def abx(classes, features, distance_function, cutoff=1000):
     """Calculate the ABX score for a set of classes and a features matrix.
 
     The order of the 'classes' and the 'features' arrays must be the same.
@@ -100,6 +138,9 @@ def abx(classes, features, distance_function):
         2-D array containing the features of the items.
     distance_function : callable
         Distance function to use.
+    cutoff : int, optionnal
+        Cutoff to use for sample (number of items kept). None for no sample.
+        Default to 1000.
 
     Returns
     -------
@@ -111,8 +152,14 @@ def abx(classes, features, distance_function):
         2D array containing the abx scores for each pair of classes.
         The diagonal contains nan values
     """
-    distances = compute_distances(features, distance_function)
-    average, labels, scores = score(classes, distances)
+    assert classes.shape[0] == features.shape[0]
+    _classes, _features = sort(classes, features)
+    print _classes
+    if cutoff and cutoff < _classes.shape[0]:
+        _classes, _features = sample(_classes, _features, cutoff, is_sorted=True)
+        print _classes
+    distances = compute_distances(_features, distance_function)
+    average, labels, scores = score(_classes, distances, is_sorted=True)
     return average, labels, scores
 
 

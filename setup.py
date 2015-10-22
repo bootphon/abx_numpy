@@ -24,7 +24,7 @@ class PyTest(TestCommand):
         sys.exit(pytest.main(self.test_args))
 
 
-version = "0.1"
+version = "0.2.0"
 
 setup(name="abx_numpy",
       version=version,

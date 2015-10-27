@@ -27,3 +27,7 @@ To do an ABX evaluation::
   >> from abx_numpy import abx
   >> abx(classes, features, lambda x, y: np.linalg.norm(x-y))
 
+Documentation
+-------------
+
+Complete documentation can be found `here <http://abx-numpy.readthedocs.org/en/latest/>`_.

@@ -36,7 +36,6 @@ def score(classes, distances, is_sorted=False):
     else:
         _classes, _distances = classes, distances
     labels, indexes = lib.unique_sorted(_classes)
-    print labels, indexes
     
     class Index(object):
         def __init__(self, indexes):
@@ -155,10 +154,8 @@ def abx(classes, features, distance_function, cutoff=1000):
     """
     assert classes.shape[0] == features.shape[0]
     _classes, _features = sort(classes, features)
-    print _classes
     if cutoff and cutoff < _classes.shape[0]:
         _classes, _features = sample(_classes, _features, cutoff, is_sorted=True)
-        print _classes
     distances = compute_distances(_features, distance_function)
     average, labels, scores = score(_classes, distances, is_sorted=True)
     return average, labels, scores

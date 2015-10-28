@@ -1,5 +1,5 @@
 """
-This example apply the abx evaluation on 2D data sampled from gaussian distributions
+This example apply the abx evaluation on 2D data sampled from gaussian distributions (diagonal covariance)
 """
 
 import abx_numpy
@@ -28,8 +28,10 @@ def plot_data(parameters, data):
     i = 0
     colors = ['r', 'g', 'b']
     for n_klass, klass in enumerate(parameters):
-        plt.plot(*data[i:i+klass['N']].T, marker='o', color=colors[n_klass], ls='')
+        plt.plot(*data[i:i+klass['N']].T, marker='o', color=colors[n_klass], ls='', label='class {}'.format(n_klass))
         i += klass['N']
+    plt.legend(numpoints=1)
+    plt.title('Normally distributed data points (diagonal covariance)')
     plt.show()
 
 
@@ -42,8 +44,8 @@ def evaluate():
     classes, data = sample_data(parameters)
     plot_data(parameters, data)
     results = abx_numpy.abx(classes, data, lambda x, y: np.linalg.norm(x - y))
-    np.save('results.npy', results[2])
-    print results[0]
+    print results
 
 
-evaluate()
+if __name__ == '__main__':
+    evaluate()    

@@ -28,7 +28,9 @@ def plot_data(parameters, data):
     i = 0
     colors = ['r', 'g', 'b']
     for n_klass, klass in enumerate(parameters):
-        plt.plot(*data[i:i+klass['N']].T, marker='o', color=colors[n_klass], ls='', label='class {}'.format(n_klass))
+        plt.plot(*data[i:i+klass['N']].T, marker='o',
+                 color=colors[n_klass], ls='',
+                 label='class {}'.format(n_klass+1))
         i += klass['N']
     plt.legend(numpoints=1)
     plt.title('Normally distributed data points (diagonal covariance)')

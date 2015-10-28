@@ -32,10 +32,11 @@ def score(classes, distances, is_sorted=False):
     """
     if not is_sorted:
         order = np.argsort(classes)
-        _classes, _distances = classes[order], distances[order, order]
+        _classes, _distances = classes[order], distances[order, :][:, order]
     else:
         _classes, _distances = classes, distances
     labels, indexes = lib.unique_sorted(_classes)
+    print labels, indexes
     
     class Index(object):
         def __init__(self, indexes):
@@ -59,8 +60,8 @@ def score(classes, distances, is_sorted=False):
                 items_x = range(items_a.start, a) + range(a+1, items_a.stop)
                 d_ax = np.tile(_distances[a, items_x], (items_b.stop - items_b.start, 1))
                 d_bx = _distances[items_b, :][:, items_x]
-                scores[idx_label1, idx_label2] += (np.mean((d_ax < d_bx) - (d_ax > d_bx))) * 0.5
-            scores[idx_label1, idx_label2] /= (items_a.stop - items_a.start)
+                scores[idx_label1, idx_label2] += np.mean(np.int8(d_ax < d_bx) - np.int8(d_ax > d_bx))
+            scores[idx_label1, idx_label2] = ((scores[idx_label1, idx_label2] / (items_a.stop - items_a.start)) + 1) * 0.5
     return np.nanmean(scores), labels, scores
 
 

@@ -17,7 +17,7 @@ def unique_sorted(array):
     uniques[0] = array[0]
     for index, element in enumerate(array[1:]):
         if element != uniques[n_uniques-1]:
-            indexes[n_uniques] = index
+            indexes[n_uniques] = index + 1
             uniques[n_uniques] = element
             n_uniques += 1
     indexes[n_uniques] = n_elements

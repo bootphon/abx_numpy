@@ -4,7 +4,6 @@ This example apply the abx evaluation on 2D data sampled from gaussian distribut
 
 import abx_numpy
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 def sample_data(parameters):
@@ -24,6 +23,7 @@ def sample_data(parameters):
 
 
 def plot_data(parameters, data):
+    import matplotlib.pyplot as plt
     assert len(parameters) <= 3, 'Cannot plot more than 3 classes'
     i = 0
     colors = ['r', 'g', 'b']

@@ -31,12 +31,16 @@ To do an ABX evaluation::
 Example
 -------
 
-See 2D_normal_example.py in 'example/'.
+See '2D_normal_example.py' in 'example/' for the code. A dataset is randomly generated: datapoints from 3 classes are sampled from 3 normal distribution. We evalaluate the discriminability between all those classes.
 
 .. image:: examples/data.png
     :width: 10%
 
 Average abx score: 0.82
+
+This score correspond to the proportion of successful ABX trials (chance level is at 0.5)
+
+Discrimination matrix:
 
 ===== ==== ==== ====
 class  1    2    3
@@ -45,6 +49,8 @@ class  1    2    3
  2    0.64 N/A  0.74
  3    0.96 0.95 N/A
 ===== ==== ==== ====
+
+The results confirm what we can see: Class 1 is confused with Class 2 but not with Class 3. Class 2 is confused with both. And Class 3 is confused with neither.
 
 Documentation
 -------------

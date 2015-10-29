@@ -27,27 +27,32 @@ To do an ABX evaluation::
   >> from abx_numpy import abx
   >> abx(classes, features, lambda x, y: np.linalg.norm(x-y))
 
+The main function (abx) takes as input:
+
+  - classes: list, [n_items], the class to which each items belong. E.g. ['class 1', 'class 1', 'class 2'].
+  - features: array_like, [n_items, n_dim], the features for each items (in the same order as classes). E.g. [[2, 3], [1, 3], [5, 4]]
+  - distance_function: callable, distance function to use for the calculation. E.g. euclidian distance.
 
 Example
 -------
 
-See '2D_normal_example.py' in 'example/' for the code. A dataset is randomly generated: datapoints from 3 classes are sampled from 3 normal distribution. We evalaluate the discriminability between all those classes.
+See '2D_normal_example.py' in 'examples/' for the code. A dataset is randomly generated: datapoints from 3 classes are sampled from 3 different gaussians. We evaluate the ABX discriminability between those 3 classes.
 
 .. image:: examples/data.png
     :width: 10%
 
-Average abx score: 0.82
+Average abx score: **0.82**
 
-This score correspond to the proportion of successful ABX trials (chance level is at 0.5)
+This score correspond to the proportion of successful ABX trials (chance level is at 0.5).
 
 Discrimination matrix:
 
 ===== ==== ==== ====
 class  1    2    3
 ===== ==== ==== ====
- 1    N/A  0.76 0.85
- 2    0.64 N/A  0.74
- 3    0.96 0.95 N/A
+**1** N/A  0.76 0.85
+**2** 0.64 N/A  0.74
+**3** 0.96 0.95 N/A
 ===== ==== ==== ====
 
 The results confirm what we can see: Class 1 is confused with Class 2 but not with Class 3. Class 2 is confused with both. And Class 3 is confused with neither.

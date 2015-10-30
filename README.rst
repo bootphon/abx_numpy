@@ -29,9 +29,9 @@ To do an ABX evaluation::
 
 The main function (abx) takes as input:
 
-  - classes: list, [n_items], the class to which each items belong. E.g. ['class 1', 'class 1', 'class 2'].
-  - features: array_like, [n_items, n_dim], the features for each items (in the same order as classes). E.g. [[2, 3], [1, 3], [5, 4]]
-  - distance_function: callable, distance function to use for the calculation. E.g. euclidian distance.
+  - classes: list, [n_items], the class to which each items belong (any type). E.g. ['class 1', 'class 1', 'class 2'].
+  - features: array_like, [n_items, n_dim], the features for each items in the same order as classes (any type). E.g. [[2, 3], [1, 3], [5, 4]]
+  - distance_function: callable, distance function to use for the calculation. E.g. euclidian distance. There are example of distances in the 'distances' module.
 
 Example
 -------

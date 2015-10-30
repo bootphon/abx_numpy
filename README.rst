@@ -21,7 +21,9 @@ Installation
 Usage
 -----
 
-To do an ABX evaluation::
+To do an ABX evaluation:
+
+.. highlight:: python
 
   import numpy as np
   from abx_numpy import abx

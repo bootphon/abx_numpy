@@ -23,7 +23,7 @@ Usage
 
 To do an ABX evaluation:
 
-.. highlight:: python
+.. code-block:: python
 
   import numpy as np
   from abx_numpy import abx

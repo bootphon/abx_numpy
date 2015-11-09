@@ -2,6 +2,7 @@
 This example apply the abx evaluation on 2D data sampled from gaussian distributions (diagonal covariance)
 """
 
+from __future__ import print_function
 import abx_numpy
 import numpy as np
 
@@ -46,7 +47,7 @@ def evaluate():
     classes, data = sample_data(parameters)
     plot_data(parameters, data)
     results = abx_numpy.abx(classes, data, lambda x, y: np.linalg.norm(x - y))
-    print results
+    print(results)
 
 
 if __name__ == '__main__':

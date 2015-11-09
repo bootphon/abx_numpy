@@ -7,7 +7,7 @@ Licensed under GPLv3.
 """
 import numpy as np
 import itertools
-import lib
+from . import lib
 
 
 def score(classes, distances, is_sorted=False):
@@ -56,7 +56,7 @@ def score(classes, distances, is_sorted=False):
             items_a = index.get_slice(idx_label1)
             items_b = index.get_slice(idx_label2)
             for a in range(items_a.start, items_a.stop):
-                items_x = range(items_a.start, a) + range(a+1, items_a.stop)
+                items_x = list(range(items_a.start, a)) + list(range(a+1, items_a.stop))
                 d_ax = np.tile(_distances[a, items_x], (items_b.stop - items_b.start, 1))
                 d_bx = _distances[items_b, :][:, items_x]
                 scores[idx_label1, idx_label2] += np.mean(np.int8(d_ax < d_bx) - np.int8(d_ax > d_bx))

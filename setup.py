@@ -47,7 +47,7 @@ setup(name="abx_numpy",
       cmdclass={'test': PyTest},
 
       # TODO: List of packages that this one depends upon:
-      install_requires=['numpy'],
+      install_requires=['numpy', 'scipy'],
       # TODO: List executable scripts, provided by the package (this is just an example)
       # entry_points={
       #   'console_scripts':

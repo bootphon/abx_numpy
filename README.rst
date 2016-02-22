@@ -78,6 +78,11 @@ The results confirm what we can see: Class 1 is confused with Class 2
 but not with Class 3. Class 2 is confused with both. And Class 3 is
 confused with neither.
 
+Note that the ordering of the array is the following: the score shown
+is the discriminability of the class in the column when compared to the
+class in the row. For instance, for the 1st row and 2nd column (0.76),
+X and A are from class 1 and B is from class 2.
+
 Documentation
 -------------
 
